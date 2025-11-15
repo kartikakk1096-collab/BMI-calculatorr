@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1f3f3f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #2c5c5c;
+            padding: 30px;
+            width: 400px;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 15px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            background-color: #0e6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0a4d4d;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #144444;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>BMI CALCULATOR</h2>
+
+        <label>Nama:</label>
+        <input type="text" id="nama" placeholder="Masukkan nama anda">
+
+        <label>Usia:</label>
+        <input type="number" id="usia" placeholder="Masukkan usia anda">
+
+        <label>Jenis Kelamin:</label>
+        <select id="gender">
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Wanita</option>
+        </select>
+
+        <label>Tinggi Badan (cm):</label>
+        <input type="number" id="tinggi" placeholder="Masukkan tinggi badan anda">
+
+        <label>Berat Badan (kg):</label>
+        <input type="number" id="berat" placeholder="Masukkan berat badan anda">
+
+        <div class="btn-row">
+            <button onclick="hitungBMI()">Hitung BMI</button>
+            <button onclick="resetForm()">Reset</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+<script>
+    function hitungBMI() {
+        let nama = document.getElementById("nama").value;
+        let tinggi = parseFloat(document.getElementById("tinggi").value) / 100;
+        let berat = parseFloat(document.getElementById("berat").value);
+
+        if (!nama || !tinggi || !berat) {
+            alert("Harap isi semua data!");
+            return;
+        }
+
+        let bmi = (berat / (tinggi * tinggi)).toFixed(2);
+        let kategori = "";
+
+        if (bmi < 18.5) kategori = "Kurus";
+        else if (bmi < 24.9) kategori = "Normal";
+        else if (bmi < 29.9) kategori = "Berlebih";
+        else kategori = "Obesitas";
+
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML =
+            `<b>${nama}</b><br>BMI Anda: <b>${bmi}</b><br>Status: <b>${kategori}</b>`;
+    }
+
+    function resetForm() {
+        document.getElementById("nama").value = "";
+        document.getElementById("usia").value = "";
+        document.getElementById("gender").value = "";
+        document.getElementById("tinggi").value = "";
+        document.getElementById("berat").value = "";
+        document.getElementById("result").style.display = "none";
+    }
+</script>
+
+</body>
+</html>
